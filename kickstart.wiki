@@ -1,0 +1,10 @@
+= What is kickstart = 
+
+ Automated installation method to install Red Hat Enterprise Linux
+ 
+= How Do You Perform a Kickstart Installation? =
+
+* Create a kickstart file.
+* Create a boot media with the kickstart file or make the kickstart file available on the network.
+* Make the installation tree available.
+* Start the kickstart installation.

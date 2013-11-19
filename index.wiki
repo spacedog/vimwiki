@@ -1,0 +1,4 @@
+= My knowledge base =
+  * [[Tasks]]  -- things to be done
+  * [[Docs]]   -- Different documentation
+  * Scatchpad -- various temporary stuff

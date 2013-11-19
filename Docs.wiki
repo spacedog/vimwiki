@@ -1,0 +1,7 @@
+= Virtualization =
+
+* [[KVM]]
+
+= Linux =
+
+* [[kickstart]]

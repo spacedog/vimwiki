@@ -1,0 +1,70 @@
+ = KVM - Glossary =
+ 
+  *KVM* functions by utilizing the CPU virtualization technology extensions on
+   modern Intel and AMD processors, known as [[Intel-VT]] and [[AMD-V.]]  Using
+   a kernel module loaded into memory, KVM utilizes the processor and, via
+   user-mode driver based on modified QEMU, it emulates a hardware layer upon
+   which virtual machines can be created and run. KVM can also be executed
+   without the CPU extensions, but then, it will run in a pure emulation mode
+   using QEMU, resulting in a significant performance penalty.
+
+  KVM can be managed either via a graphical management tool, similar to VMware
+  products or VirtualBox, or via command line using several methods.  The most
+  popular GUI is called *Virtual Machine Manager (VMM)*, developed by RedHat.
+  The generic KVM command interface is provided by *virsh*.
+  
+= KVM - Pros and cons =
+
+  VM is good for you if you are looking for a *free* modern virtualization
+  solution with an unlimited usage mode and without additional licensing fees or
+  feature tiering, a powerful command line interface and you're not afraid to
+  dirty your hands. KVM is not good for you if your CPU does not have
+  virtualization extensions, you're afraid of writing scripts, have no desire to
+  dabble in code, and prefer administratively simpler solutions like VMware
+  Server, ESXi or Virtualbox.
+  
+= Prerequisites =
+
+  You need a CPU that supports virtualization. This can be checked thusly:
+
+  `egrep -c '(vmx|svm)' /proc/cpuinfo`
+  
+  If you get a non-zero value, you're good. BUT ... you will also need to check
+  that virtualization technology is enabled in *BIOS*. Indeed, after enabling
+  the feature, you will have to cold power-cycle the machine for the change to
+  take effect.
+
+= Using KVM = 
+
+== Virtual Machine Manager (VMM) == 
+
+* To add new connections, click File > Add Connection. This will open a window
+  that lets you specify the Hypervisor type and the connection type. VMM can use
+  both local and remote connections, including QEMU/KVM and Xen. You can connect
+  using all kinds of authentications methods.
+* Network functionality can be reviewed or changed under Host Details
+
+=== Creating virtual machine === 
+
+* Enter the name and the install media location. You can use local storage in
+  the form of ISO images or CD/DVDs, HTTP or FTP servers, NFS area, or PXE.
+* choose either a physical device or an image. In our case, we will use an ISO. 
+* Then, choose the OS type and the version. This does not have to be precise,
+  but an educated guess is good. It allows additional virtual machine
+  optimization.
+* Allocate RAM and CPUs.
+* The next step is quite interesting - storage. You can create a new image or
+  use an existing one. You can set the size and preallocate all space, which is
+  good for performance, plus it reduces fragmentation.
+* Final step is a summary, with some advanced options. You can change your
+  network type, set a fixed Mac address, choose the virtualization type, and the
+  target architecture. If you're running in Usermode, your network options will
+  be limited. If you're not using bridge utilities, you won't be able to bridge
+  your interfaces. Lastly, if you have no CPU virtualization extensions, the
+  Virt Type: field will read QEMU and not KVM. We will see an example of this
+  later on, when we discuss the major drawbacks of running in the emulation
+  mode.
+  
+  ==== Command line ====
+  * using virsh to list all available virtual machines.
+  * use virt-install to create and start virtual machine
